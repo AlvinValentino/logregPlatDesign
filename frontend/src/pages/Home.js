@@ -5,7 +5,7 @@ import axios from 'axios';
 function Home() {
 
     const [user, setUser] = useState({});
-    const [token, setToken] = useState(JSON.parse(localStorage.getItem("token")));
+    const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')));
 
     const fetchData = async () => {
 
@@ -17,7 +17,7 @@ function Home() {
         })
     }
 
-    useEffect(() => {
+    useEffect((response) => {
         if(!token) {
             window.location.href = "/";
         }
@@ -48,11 +48,13 @@ function Home() {
                             <a href="/" className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Our Products</a>
                         </li>
                         <li>
-                            <a href="/" className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Start Selling</a>
+                            <a href="/" className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">{user.name}</a>
                         </li>
-                        <li>
-                            <a href="/" className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Sign in</a>
-                        </li>
+                        <form onSubmit={logoutHandler}>
+                            <li>
+                                <button className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Logout</button>
+                            </li>
+                        </form>
                     </ul>
                 </div>
             </div>
@@ -257,11 +259,9 @@ function Home() {
                                 </svg>
                             </div>
                             <div className="px-5">
-                                <button onSubmit={logoutHandler}>
-                                    <p className="text-3xl font-medium p-10">Logout</p>
+                                    <p className="text-3xl font-medium p-10">Test</p>
                                     <h5 className="overflow-hidden text-xl tracking-tight text-gray-900 dark:text-white ...">Lorem ipsum dolor sit amet, consectetur 
                                         adipiscing elit, sed do eiusmod tempor </h5>
-                                </button>
                             </div>
                         </a>
                     </div>

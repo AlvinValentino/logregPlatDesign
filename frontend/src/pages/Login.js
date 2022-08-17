@@ -4,9 +4,15 @@ import axios from 'axios';
 function Login() {
     const token = JSON.parse(localStorage.getItem("token"));
 
+    const [checked, setChecked] = useState(false);
+    const handleCheck = () => {
+        setChecked(!checked)
+    }
+    
+    
     const [formData, setFormData] = useState({
-       email: "",
-       password: "" 
+        email: localStorage.getItem('email'),
+        password: "" 
     });
 
     useEffect(() => {
@@ -23,7 +29,6 @@ function Login() {
    const loginHandler = async(e) => {
         e.preventDefault();
 
-
         if(formData.email === "" || formData.password === "") {
             alert("Lengkapi Field")
             return;
@@ -31,11 +36,15 @@ function Login() {
 
         await axios.post('http://127.0.0.1:8000/api/login', formData)
         .then((response) => {
+            localStorage.removeItem('email')
+            if(checked === true) {
+                localStorage.setItem('email', formData.email)
+            }
             localStorage.setItem('token', JSON.stringify(response.data.token));
             window.location.href = "/home";
         })
         .catch((err) => {
-            return (err);
+            return err
         })
    }
 
@@ -90,11 +99,11 @@ function Login() {
 
                         <div className="flex justify-between -mt-2">
                             <div className="form-group form-check">
-                                <input type="checkbox" className="accent-orange-500 form-check-input h-4 w-4 border border-orange-500 rounded-sm bg-white checked:bg-orange-500 checked:border-orange-500 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" id="exampleCheck2" />
+                                <input type="checkbox" className="accent-orange-500 form-check-input h-4 w-4 border border-orange-500 rounded-sm bg-white checked:bg-orange-500 checked:border-orange-500 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" id="exampleCheck2" checked={checked} onChange={handleCheck} />
                                 <label className="text-sm form-check-label inline-block text-orange-500" htmlFor="exampleCheck2">Remember me</label>
                             </div>
                             <button type="reset" className="w-max">
-                                <span className="text-sm tracking-wide text-gray-500">Forgot password ?</span>
+                                <span className="text-sm tracking-wide text-gray-500"><a href="/forgot">Forgot password ?</a></span>
                             </button>
                         </div>
 
