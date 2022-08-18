@@ -11,20 +11,22 @@ class LoginController extends Controller {
     public function __invoke(Request $request) {
         $validator = Validator::make($request->all(), [
             'email' => 'required',
-            'password' => 'required'
+            'password' => 'required|min:6'
         ]);
 
         if($validator->fails()) {
             return response()->json([
-                'message' => 'asu'
-            ]);
+                'title' => 'Validasi Gagal!',
+                'message' => 'Coba lagi.'
+            ], 401);
         }
 
         $credentials = $request->only('email', 'password');
 
         if(!$token = JWTAuth::attempt($credentials)) {
             return response()->json([
-                'message' => 'Login Gagal!'
+                'title' => 'Login gagal!',
+                'message' => 'Coba lagi.'
             ], 401);
         }
 

@@ -13,16 +13,22 @@ class RegisterController extends Controller {
         $validator = Validator::make($request->all(), [
             'username' => 'required',
             'name' => 'required',
-            'email' => 'required|email|unique:logreg',
+            'email' => 'required|unique:logreg',
             'password' => 'required|min:6'
         ]);
 
         if($validator->fails()) {
-            return back();
+            return response()->json([
+                'title' => 'Validasi Gagal!',
+                'message' => 'Coba lagi.'
+            ], 401);
         };
 
         if(User::where('email', $request->email)->exists()) {
-            return response()->back();
+            return response()->json([
+                'title' => 'Registrasi gagal!',
+                'message' => 'Coba lagi.'
+            ], 401);
         }
 
         User::create([

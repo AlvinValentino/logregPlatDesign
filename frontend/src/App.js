@@ -12,14 +12,14 @@ import Forgot from './pages/Forgot'
 function App() {
   const [alert, setAlert] = useState({
     isOpen: false,
-    message: ""
+    message: "",
   })
 
   return (
     <div>
       <Switch>
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/" component={Login} />
+        <Route exact path="/register" render={() => <Register alert={alert} setAlert={setAlert}/>} />
+        <Route exact path="/" render={() => <Login alert={alert} setAlert={setAlert}/>} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/forgot" component={Forgot} />
       </Switch>

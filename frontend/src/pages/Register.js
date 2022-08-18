@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Alert } from "../components";
 
 
-function Register() {
+function Register(props) {
+    const {alert, setAlert} = props;
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -18,8 +21,15 @@ function Register() {
         e.preventDefault();
 
         if(formData.name === "" || formData.username === "" || formData.email === "" || formData.password === "") {
-            alert("Lengkapi Field Dahulu!")
-            return;
+            setTimeout(() => {
+                setAlert({isOpen:false});
+            },5000)
+
+            return setAlert({
+                isOpen:true,
+                title:"Field masih kosong!",
+                message:"Ayo diisi.",
+            });
         }
 
         await axios.post('http://127.0.0.1:8000/api/register', formData)
@@ -27,8 +37,20 @@ function Register() {
             window.location.href = "/";
         })
         .catch((err) => {
-            return (err);
+            const { response:{ data } } = err;
+
+           setAlert({
+            isOpen:true,
+            message:data.message,
+            title:data.title,
+            variant:"bg-red-100",
+            textVariant:"text-red-800",
+           });
         })
+
+        setTimeout(() => {
+            setAlert({isOpen:false});
+        },5000)
     };
 
     return (
@@ -47,7 +69,7 @@ function Register() {
                     </div>
 
                     <form method='POST' onSubmit={registerHandler} className="space-y-6 mt-10">
-
+                        {alert.isOpen ?  <Alert alert={alert} setAlert={setAlert}/> : null}
                         <div className="relative flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 absolute ml-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
