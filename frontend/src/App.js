@@ -8,8 +8,11 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import Forgot from './pages/Forgot'
+import Resend from './pages/Resend'
+import Reset from './pages/Reset'
 
 function App() {
+
   const [alert, setAlert] = useState({
     isOpen: false,
     message: "",
@@ -22,6 +25,8 @@ function App() {
         <Route exact path="/" render={() => <Login alert={alert} setAlert={setAlert}/>} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/forgot" component={Forgot} />
+        <Route exact path="/api/forget?token={token}" component={Reset} />
+        <Route exact path="/resend" component={Resend} />
       </Switch>
     </div>
   );

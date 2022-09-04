@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/register', App\Http\Controllers\Auth\RegisterController::class)->name('register');
 Route::post('/login', App\Http\Controllers\Auth\LoginController::class)->name('login');
+
+
+Route::post('/forgot', [App\Http\Controllers\Auth\ForgotController::class, 'forgot']);
+Route::post('/resend', [App\Http\Controllers\Auth\ForgotController::class, 'forgot']);
+Route::post('/reset', [App\Http\Controllers\Auth\ForgotController::class, 'reset']);

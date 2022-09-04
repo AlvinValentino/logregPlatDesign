@@ -13,6 +13,7 @@ module.exports = {
       ov: "#A2A2A2",
       303030: "#303030",
       585858: "#585858",
+      biruMuda: "#F8FAFF",
   },
   fontSize: {
       customsize1: "80px",

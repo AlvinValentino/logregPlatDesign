@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link link rel="icon" type="image/x-icon" href="/public/images/favicon.ico" />
+        <link rel="stylesheet" href="/public/css/style.css" />
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+        <title>Devla</title>
+
+        <style>
+            .swiper-button-next,
+            .swiper-button-prev {
+                background-color: white;
+                background-color: rgba(255, 255, 255, 0.5);
+                right: 10px;
+                padding: 30px;
+                color: #000 !important;
+                fill: black !important;
+                stroke: black !important;
+                display: none;
+            }
+
+            .swiper {
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="bg-white border-gray-100 border-b-2 px-2 sm:px-4 py-4 rounded">
+            <div class="container flex flex-wrap justify-between items-center mx-auto">
+                <a href="#" class="flex items-center">
+                    <img src="/public/images/logo.png" class="mr-3 h-6 sm:h-9" alt="Devla Logo" />
+                </a>
+                <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 mobile-menu-button" aria-controls="navbar-default" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                </button>
+                <div class="hidden w-full md:block md:w-auto mobile-menu" id="navbar-default">
+                    <ul class="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
+                        <li>
+                            <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 bg-orange-500 rounded md:bg-transparent md:text-orange-500 md:p-0" aria-current="page">Home</a>
+                        </li>
+                        <li>
+                            <a href="products.html" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0">Our Products</a>
+                        </li>
+                        <li>
+                            <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0">Start Selling</a>
+                        </li>
+                        <li>
+                            <a href="login.html" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0">Sign in</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <section>
+            <div class="mx-auto mt-10 container flex flex-wrap flex-row tablet:items-center tablet:text-left text-center justify-between px-10">
+                <div class="relative tablet:w-6/12 tablet:mb-0 mb-5 space-y-4">
+                    <p class="font-bold tablet:text-5xl text-3xl text-303030">Lorem ipsum dolor sit amet</p>
+                    <p class="tablet:text-2xl text-xl italic text-585858 max-w-md">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+                </div>
+                <div class="relative h-full ml-auto tablet:w-5/12 justify-items-end">
+                    <img src="/public/images/body1.png" class="tablet:max-h-96 m-auto" alt="" />
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gray-50">
+            <div class="mx-auto container mt-20 px-10">
+                <div class="text-center">
+                    <p class="text-4xl font-medium p-10">Our Templates</p>
+                </div>
+
+                <!-- <div class="overflow-x-auto">
+                    <div class="flex flex-row justify-between"> -->
+                <div class="swiper mySwiper1">
+                    <div class="justify-between swiper-wrapper">
+                        <div class="w-full mr-3 max-w-mini bg-white rounded-lg shadow-md swiper-slide">
+                            <a href="#">
+                                <img class="rounded-t-lg" src="/public/images/card1.png" alt="product image" />
+                            </a>
+                            <div class="px-5 pb-5">
+                                <a href="#">
+                                    <h5 class="truncate ... overflow-hidden text-xl font-semibold tracking-tight text-gray-900 ... mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque numquam suscipit voluptas delectus minus! Cumque ex, laudantium laboriosam ea quisquam earum sunt aspernatur porro quibusdam, voluptates est illo tempore molestias.</h5>
+                                </a>
+                                <div class="flex items-center mb-3"></div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex flex-row items-center">
+                                        <img src="/public/images/muka1.jpeg" class="h-9 w-9 mr-2 rounded-full" alt="" />
+                                        <label class="font-medium text-gray-700">Nama Manusia</label>
+                                    </div>
+                                    <div class="flex flex-row items-center text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                                        </svg>
+                                        <a href="#">999 </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full mr-3 max-w-mini bg-white rounded-lg shadow-md swiper-slide">
+                            <a href="#">
+                                <img class="rounded-t-lg" src="/public/images/card1.png" alt="product image" />
+                            </a>
+                            <div class="px-5 pb-5">
+                                <a href="#">
+                                    <h5 class="truncate ... overflow-hidden text-xl font-semibold tracking-tight text-gray-900 ... mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque numquam suscipit voluptas delectus minus! Cumque ex, laudantium laboriosam ea quisquam earum sunt aspernatur porro quibusdam, voluptates est illo tempore molestias.</h5>
+                                </a>
+                                <div class="flex items-center mb-3"></div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex flex-row items-center">
+                                        <img src="/public/images/muka1.jpeg" class="h-9 w-9 mr-2 rounded-full" alt="" />
+                                        <label class="font-medium text-gray-700">Nama Manusia</label>
+                                    </div>
+                                    <div class="flex flex-row items-center text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                                        </svg>
+                                        <a href="#">999 </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full mr-3 max-w-mini bg-white rounded-lg shadow-md swiper-slide">
+                            <a href="#">
+                                <img class="rounded-t-lg" src="/public/images/card1.png" alt="product image" />
+                            </a>
+                            <div class="px-5 pb-5">
+                                <a href="#">
+                                    <h5 class="truncate ... overflow-hidden text-xl font-semibold tracking-tight text-gray-900 ... mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque numquam suscipit voluptas delectus minus! Cumque ex, laudantium laboriosam ea quisquam earum sunt aspernatur porro quibusdam, voluptates est illo tempore molestias.</h5>
+                                </a>
+                                <div class="flex items-center mb-3"></div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex flex-row items-center">
+                                        <img src="/public/images/muka1.jpeg" class="h-9 w-9 mr-2 rounded-full" alt="" />
+                                        <label class="font-medium text-gray-700">Nama Manusia</label>
+                                    </div>
+                                    <div class="flex flex-row items-center text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                                        </svg>
+                                        <a href="#">999 </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper mySwiper1 mt-10">
+                    <div class="justify-between swiper-wrapper">
+                        <div class="w-full mr-3 max-w-mini bg-white rounded-lg shadow-md swiper-slide">
+                            <a href="#">
+                                <img class="rounded-t-lg" src="/public/images/card1.png" alt="product image" />
+                            </a>
+                            <div class="px-5 pb-5">
+                                <a href="#">
+                                    <h5 class="truncate ... overflow-hidden text-xl font-semibold tracking-tight text-gray-900 ... mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque numquam suscipit voluptas delectus minus! Cumque ex, laudantium laboriosam ea quisquam earum sunt aspernatur porro quibusdam, voluptates est illo tempore molestias.</h5>
+                                </a>
+                                <div class="flex items-center mb-3"></div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex flex-row items-center">
+                                        <img src="/public/images/muka1.jpeg" class="h-9 w-9 mr-2 rounded-full" alt="" />
+                                        <label class="font-medium text-gray-700">Nama Manusia</label>
+                                    </div>
+                                    <div class="flex flex-row items-center text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                                        </svg>
+                                        <a href="#">999 </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full mr-3 max-w-mini bg-white rounded-lg shadow-md swiper-slide">
+                            <a href="#">
+                                <img class="rounded-t-lg" src="/public/images/card1.png" alt="product image" />
+                            </a>
+                            <div class="px-5 pb-5">
+                                <a href="#">
+                                    <h5 class="truncate ... overflow-hidden text-xl font-semibold tracking-tight text-gray-900 ... mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque numquam suscipit voluptas delectus minus! Cumque ex, laudantium laboriosam ea quisquam earum sunt aspernatur porro quibusdam, voluptates est illo tempore molestias.</h5>
+                                </a>
+                                <div class="flex items-center mb-3"></div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex flex-row items-center">
+                                        <img src="/public/images/muka1.jpeg" class="h-9 w-9 mr-2 rounded-full" alt="" />
+                                        <label class="font-medium text-gray-700">Nama Manusia</label>
+                                    </div>
+                                    <div class="flex flex-row items-center text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                                        </svg>
+                                        <a href="#">999 </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full mr-3 max-w-mini bg-white rounded-lg shadow-md swiper-slide">
+                            <a href="#">
+                                <img class="rounded-t-lg" src="/public/images/card1.png" alt="product image" />
+                            </a>
+                            <div class="px-5 pb-5">
+                                <a href="#">
+                                    <h5 class="truncate ... overflow-hidden text-xl font-semibold tracking-tight text-gray-900 ... mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque numquam suscipit voluptas delectus minus! Cumque ex, laudantium laboriosam ea quisquam earum sunt aspernatur porro quibusdam, voluptates est illo tempore molestias.</h5>
+                                </a>
+                                <div class="flex items-center mb-3"></div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex flex-row items-center">
+                                        <img src="/public/images/muka1.jpeg" class="h-9 w-9 mr-2 rounded-full" alt="" />
+                                        <label class="font-medium text-gray-700">Nama Manusia</label>
+                                    </div>
+                                    <div class="flex flex-row items-center text-white bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                                        </svg>
+                                        <a href="#">999 </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- </div> -->
+
+                <div class="text-center p-10">
+                    <button class="w-full max-w-sm px-6 py-3 rounded-full bg-orange-500 transition hover:bg-orange-600 focus:bg-orange-600 active:bg-orange-800">
+                        <span class="font-semibold text-white text-lg">More Templates</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="mx-auto container px-10">
+                <div class="text-center">
+                    <p class="text-4xl font-medium p-10">Why Devla ?</p>
+                </div>
+
+                <div class="swiper mySwiper">
+                    <div class="justify-between swiper-wrapper">
+                        <div class="text-center max-w-md swiper-slide">
+                            <img src="/public/images/ilus1.png" class="w-52 h-52 m-10 mx-auto" alt="" />
+                            <h1 class="text-3xl font-medium">Totally Free</h1>
+                            <p class="mt-5 text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+                        </div>
+
+                        <div class="text-center max-w-md swiper-slide">
+                            <img src="/public/images/ilus2.png" class="w-52 h-52 m-10 mx-auto" alt="" />
+                            <h1 class="text-3xl font-medium">Upload your work</h1>
+                            <p class="mt-5 text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+                        </div>
+
+                        <div class="text-center max-w-md swiper-slide">
+                            <img src="/public/images/ilus3.png" class="w-52 h-52 m-10 mx-auto" alt="" />
+                            <h1 class="text-3xl font-medium">Start earning</h1>
+                            <p class="mt-5 text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gray-50">
+            <div class="mx-auto container mt-20 px-10">
+                <div class="text-center">
+                    <p class="text-4xl font-medium p-10">Sell your templates now</p>
+                </div>
+
+                <div class="swiper mySwiper">
+                    <div class="justify-between swiper-wrapper">
+                        <div class="max-w-md text-center py-10 swiper-slide">
+                            <div class="w-20 h-20 bg-white rounded-full m-auto flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11 m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <div class="px-5">
+                                <p class="text-3xl font-medium p-10">Sign up</p>
+                                <h5 class="overflow-hidden text-xl tracking-tight text-gray-900 ...">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</h5>
+                            </div>
+                        </div>
+
+                        <div class="max-w-md text-center py-10 swiper-slide">
+                            <div class="w-20 h-20 bg-white rounded-full m-auto flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11 m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                            </div>
+                            <div class="px-5">
+                                <p class="text-3xl font-medium p-10">Upload your work</p>
+                                <h5 class="overflow-hidden text-xl tracking-tight text-gray-900 ...">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</h5>
+                            </div>
+                        </div>
+
+                        <div class="max-w-md text-center py-10 swiper-slide">
+                            <div class="w-20 h-20 bg-white rounded-full m-auto flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11 m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="px-5">
+                                <p class="text-3xl font-medium p-10">Start earning</p>
+                                <h5 class="overflow-hidden text-xl tracking-tight text-gray-900 ...">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+
+                <div class="text-center mt-10">
+                    <button class="w-full max-w-sm px-6 py-3 rounded-full bg-orange-500 transition hover:bg-orange-600 focus:bg-orange-600 active:bg-orange-800 mb-20">
+                        <span class="font-semibold text-white text-lg">Sign Up</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- Footer -->
+        <section class="p-10">
+            <div class="mx-auto mt-20 mb-20 container flex flex-wrap flex-row items-center justify-between py-10 overflow-x-auto">
+                <div class="relative w-5/12 space-y-4 tablet:mb-0 tablet:mr-0 mr-5 mb-16">
+                    <img src="/public/images/logo.png" alt="" class="max-h-16 max-w-18" />
+                    <p class="text-2xl italic text-585858 max-w-md">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+                </div>
+                <div class="flex-col tablet:mb-0 mb-16 tablet:mr-0 mr-5">
+                    <p class="font-bold text-2xl mb-5">For Designer</p>
+                    <p class="text-lg mb-3 text-gray-600">Go Pro!</p>
+                    <p class="text-lg mb-3 text-gray-600">Explore Design Work</p>
+                    <p class="text-lg mb-3 text-gray-600">Design Blog</p>
+                    <p class="text-lg mb-3 text-gray-600">Go Pro</p>
+                    <p class="text-lg mb-3 text-gray-600">Go Pro</p>
+                    <p class="text-lg mb-3 text-gray-600">Go Pro</p>
+                </div>
+                <div class="flex-col tablet:mb-0 mb-16 tablet:mr-0 mr-5">
+                    <p class="font-bold text-2xl mb-5">For Designer</p>
+                    <p class="text-lg mb-3 text-gray-600">Go Pro!</p>
+                    <p class="text-lg mb-3 text-gray-600">Explore Design Work</p>
+                    <p class="text-lg mb-3 text-gray-600">Design Blog</p>
+                    <p class="text-lg mb-3 text-gray-600">Go Pro</p>
+                    <p class="text-lg mb-3 text-gray-600">Go Pro</p>
+                    <p class="text-lg mb-3 text-gray-600">Go Pro</p>
+                </div>
+                <div class="flex-col tablet:mb-0">
+                    <p class="font-bold text-2xl mb-5">For Designer</p>
+                    <p class="text-lg mb-3 text-gray-600">Go Pro!</p>
+                    <p class="text-lg mb-3 text-gray-600">Explore Design Work</p>
+                    <p class="text-lg mb-3 text-gray-600">Design Blog</p>
+                    <p class="text-lg mb-3 text-gray-600">Go Pro</p>
+                    <p class="text-lg mb-3 text-gray-600">Go Pro</p>
+                    <p class="text-lg mb-3 text-gray-600">Go Pro</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gray-600">
+            <p class="text-center tablet:text-xl text-lg p-2 text-gray-400">© Copyright 2022 Devla. All Rights Reserved.</p>
+        </section>
+
+        <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+                // spaceBetween: 30,
+                // centeredSlides: true,
+                slidesPerView: "auto",
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            });
+
+            var swiper = new Swiper(".mySwiper1", {
+                slidesPerView: "auto",
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+            });
+
+            const btn = document.querySelector("button.mobile-menu-button");
+            const menu = document.querySelector(".mobile-menu");
+
+            btn.addEventListener("click", () => {
+                menu.classList.toggle("hidden");
+            });
+        </script>
+    </body>
+</html>

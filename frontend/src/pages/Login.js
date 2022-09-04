@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Alert } from "../components";
-import { GoogleLogin } from '@react-oauth/google';
 import decode from 'jwt-decode'
+import { GoogleLogin } from '@react-oauth/google';
+// import LoginGithub from 'react-login-github';
+
+
+const users = JSON.parse(localStorage.getItem('token'))
+const userGoogle = JSON.parse(localStorage.getItem('user'))
 
 function Login(props) {
-
     const [passtype, setPasstype] = useState(false);
 
     const {alert,setAlert} = props;
-    const token = JSON.parse(localStorage.getItem("token"));
+    const [token,setToken] = useState(users ? users : userGoogle);
 
     const [checked,setChecked] =  useState(localStorage.getItem("email") ? true : false);
     const [formData, setFormData] = useState({
@@ -86,16 +90,22 @@ function Login(props) {
                         </a>
                         <p className="font-medium text-lg text-gray-500">Welcome to Devla ! Login first</p>
                     </div>
-                    <div className="mt-12 grid gap-6 sm:grid-cols-2">
+                    <div className="mt-12 gap-6 sm:grid-cols-2 flex justify-center">
                         {/* <button onClick={() => login()} className="py-3 px-6 rounded-xl bg-orange-100 hover:bg-orange-200 focus:bg-orange-200 active:bg-orange-300">
                             <div className="flex gap-4 items-center justify-center text-white">
                                 <img src="/images/google.png" className="w-5" alt="" />
                                 <span className="block w-max font-medium tracking-wide text-sm text-black">with Google</span>
                             </div>
                         </button> */}
-                        <GoogleLogin className='bg-orange-100' type='standard' shape='square' onSuccess={(response) => {
-                            localStorage.setItem("token", JSON.stringify(response.credential))
-                            window.location.reload()
+                        {/* <LoginGithub className="rounded-full border px-[9px] hover:bg-biruMuda bg-opacity-100 hover:border-blue-100" clientId="08db4bf7cc9ce577a7f3" onSuccess={(response) => {
+                            console.log(response)
+                        }} onFailure={(err) => console.log(err)}>
+                            <img className="w-5 h-5" src="/images/github.png" alt="" />
+                        </LoginGithub> */}
+
+                        <GoogleLogin type='icon' shape='circle' onSuccess={(response) => {
+                            localStorage.setItem("userGoogle", JSON.stringify(response.credential))
+                            window.location.href = "/home"
                         }}
                         onError={() => {
                             console.log("Login Failed!")
@@ -106,19 +116,20 @@ function Login(props) {
                     <div className="mt-12 border-t">
                         <span className="block w-max mx-auto -mt-3 px-4 text-center text-gray-500 bg-white">or</span>
                     </div>
+                    {/* <form onSubmit={loginHandler} method="POST"> */}
                     <div className="space-y-6 mt-10">
                         {alert.isOpen ?  <Alert alert={alert} setAlert={setAlert}/> : null}
                         <div className="relative flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 absolute ml-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
-                            <input type="email" placeholder="Email" name="email" value={formData.email} onChange={(e) => HandleChange(e)} className="w-full py-3 pr-3 pl-12 ring-1 ring-gray-300 rounded-xl placeholder-gray-600 bg-transparent transition disabled:ring-gray-200 outline-none focus:ring-2 focus:ring-red-400 disabled:bg-gray-100 disabled:placeholder-gray-400 invalid:ring-red-400 focus:invalid:outline-none" />
+                            <input type="email" placeholder="Email" name="email" value={formData.email} onChange={(e) => HandleChange(e)} className="w-full py-3 pr-3 pl-12 ring-1 ring-gray-300 rounded-xl placeholder-gray-600 bg-transparent transition disabled:ring-gray-200 outline-none focus:ring-2 focus:ring-gray-400 disabled:bg-gray-100 disabled:placeholder-gray-400 invalid:ring-red-400 focus:invalid:outline-none" />
                         </div>
                         <div className="relative flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 absolute ml-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                             </svg>
-                            <input type={passtype ? "text" : "password"} placeholder="Password" name="password" value={formData.password} onChange={(e) => HandleChange(e)} className="w-full py-3 pr-3 pl-12 ring-1 ring-gray-300 rounded-xl placeholder-gray-600 bg-transparent transition disabled:ring-gray-200 outline-none focus:ring-2 focus:ring-red-400 disabled:bg-gray-100 disabled:placeholder-gray-400 invalid:ring-red-400 focus:invalid:outline-none" />
+                            <input type={passtype ? "text" : "password"} placeholder="Password" name="password" value={formData.password} onChange={(e) => HandleChange(e)} className="w-full py-3 pr-3 pl-12 ring-1 ring-gray-300 rounded-xl placeholder-gray-600 bg-transparent transition disabled:ring-gray-200 outline-none focus:ring-2 focus:ring-gray-400 disabled:bg-gray-100 disabled:placeholder-gray-400 invalid:ring-red-400 focus:invalid:outline-none" />
                             {passtype ? 
                                 <button className="mb-4" onClick={() => setPasstype(false)}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 absolute right-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -154,6 +165,7 @@ function Login(props) {
                             </p>
                         </div>
                     </div>
+                    {/* </form> */}
                 </div>
             </div>
         </div>
