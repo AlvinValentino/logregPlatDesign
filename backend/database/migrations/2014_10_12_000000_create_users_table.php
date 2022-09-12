@@ -13,21 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('logreg', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username');
-            $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('isAdmin');
         });
 
-        Schema::create('users', function (Blueprint $table) {
-            $table->string('username');
+        Schema::create('seller', function (Blueprint $table) {
+            $table->increments('id_seller');
             $table->string('name');
-            $table->string('email')->primary();
-            $table->string('password');
-            $table->boolean('isAdmin');
+            $table->string('product_name');
+            $table->longText('product_file');
+            $table->string('category');
+            $table->text('description');
+            $table->string('nett_price');
         });
     }
 
@@ -39,5 +39,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('seller');
     }
 };

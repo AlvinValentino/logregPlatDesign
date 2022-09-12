@@ -2,29 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Notifications\ResetPassword;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\ResetPasswordNotification;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use App\Notifications\ResetPasswordNotification;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'logreg';
-
     protected $fillable = [
         'username',
-        'name',
         'email',
         'password',
-        'isAdmin',
     ];
+
+    protected $guarded = ['id'];
 
     public $timestamps = false;
 
@@ -35,14 +33,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims()
     {
-        return [];
-    }
+        $createToken = $this;
 
-    protected $guarded = ['id'];
-
-    public function sendPasswordResetNotification($token)
-    {
-        $url = 'http://localhost:3000/forget?' .$token;
-        return $this->notify(new ResetPasswordNotification($url));
+        return [
+            'data' => $createToken,
+            'type' => 'bearer',
+            'expiresIn' => auth('api')->factory()->getTTL() * 60
+        ];
     }
 }
