@@ -6,8 +6,8 @@ import { GoogleLogin } from '@react-oauth/google';
 // import LoginGithub from 'react-login-github';
 
 
-const users = JSON.parse(localStorage.getItem('token'))
-const userGoogle = JSON.parse(localStorage.getItem('user'))
+const users = JSON.parse(localStorage.getItem('user'))
+const userGoogle = JSON.parse(localStorage.getItem('userGoogle'))
 
 function Login(props) {
     const [passtype, setPasstype] = useState(false);
@@ -25,6 +25,7 @@ function Login(props) {
         if(token) {
             window.location.href = "/home";
         }
+
     },[token]);
 
 
