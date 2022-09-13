@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import Forgot from './pages/Forgot'
 import Resend from './pages/Resend'
 import Reset from './pages/Reset'
+import Detail from './pages/Detail'
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/forgot" component={Forgot} />
         <Route exact path="/api/forget?token={token}" component={Reset} />
         <Route exact path="/resend" component={Resend} />
+        <Route exact path="/detail" component={Detail} />
       </Switch>
     </div>
   );

@@ -158,7 +158,7 @@ function Login(props) {
                         </div>
                         <div className="text-center">
                             <button onClick={loginHandler} className="w-full px-6 py-3 rounded-xl bg-orange-500 transition hover:bg-orange-600 focus:bg-orange-600 active:bg-orange-800">
-                                <span className="font-semibold text-white text-lg">Login</span>
+                                <span className="font-semibold text-white text-lg">Log In</span>
                             </button>
                             <p className="w-max p-3 mx-auto">
                                 <span className="text-sm tracking-wide">Don't have an account? <a href="/register" className="text-sm text-orange-500">Register</a></span>
