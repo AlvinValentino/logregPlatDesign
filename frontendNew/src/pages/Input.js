@@ -13,6 +13,7 @@ function Input() {
     const [dataImages, setDataImages] = useState()
     
     const [formData, setFormData] = useState({
+        id_seller: user.data.id,
         name: user.data.username,
         product_name: "",
         product_file: "",
@@ -67,14 +68,14 @@ function Input() {
     
     return (
         <div>
+            <input type="hidden" value={formData.id_seller} />
             <input type="hidden" value={formData.name} />
             <input type="text" onChange={(e) => HandleChange(e)} value={formData.product_name} name="product_name" placeholder="product_name" />
             <FileBase64 onDone={({base64}) => setFormData({...formData, product_file: base64})} />
             <input type="text" onChange={(e) => HandleChange(e)} value={formData.category} name="category" placeholder="category" />
             <input type="text" onChange={(e) => HandleChange(e)} value={formData.description} name="description" placeholder="description" />
             <input type="text" onChange={(e) => HandleChange(e)} value={formData.nett_price} name="nett_price" placeholder="nett_price" />
-            <button onClick={submitHandler}>Submit</button>
-            <input type="file" onChange={(e) => uploadImage(e)} />
+            <button type="submit" onClick={submitHandler}>Submit</button>
         </div>
     )
 }

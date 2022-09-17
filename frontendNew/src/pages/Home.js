@@ -1,619 +1,431 @@
-import React, { useState, useEffect } from 'react'
-import decode from 'jwt-decode'
-import axios from 'axios'
-// import { Swiper, SwiperSlide } from 'swiper/react'
-// import 'swiper/css'
+import React, { useState, useEffect, Fragment } from 'react';
+import decode from 'jwt-decode';
+import axios from 'axios';
+import '../fonts/Inter-VariableFont_slnt,wght.ttf';
+import { Menu, Transition } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 const users = JSON.parse(localStorage.getItem('token'))
 const userGoogle = JSON.parse(localStorage.getItem('userGoogle'))
 
-function Home() {
-  const [user, setUser] = useState(userGoogle ? decode(userGoogle) : {})
-  const [token, setToken] = useState(users ? users : userGoogle)
-  const userData = decode(users)
-
-  const [datas, setDatas] = useState([])
-
-  const fetchData = async () => {
-    setUser(userData.data)
-
-    await axios.post('http://localhost:8000/api/show')
-    .then((response) => {
-      const { data } = response.data
-      setDatas(data)
-    })
-  }
-
-  useEffect(() => {
-    if (!token) {
-      window.location.href = '/'
-    }
-
-    if (!users) {}
-
-    fetchData()
-  }, [token])
-
-  const logoutHandler = async (e) => {
-    e.preventDefault()
-
-    if (users) {
-      localStorage.removeItem('token')
-    } else if (userGoogle) {
-      localStorage.removeItem('userGoogle')
-    }
-    window.location.href = '/'
-  }
-
-  return (
-    <div>
-      <nav className='bg-white border-gray-100 border-b-2 px-2 sm:px-4 py-4 rounded'>
-        <div className='container flex flex-wrap justify-between items-center mx-auto'>
-          <a href='index.html' className='flex items-center'>
-            <img
-              src='/assets/logo.png'
-              className='mr-3 h-6 sm:h-9'
-              alt='Devla Logo'
-            />
-          </a>
-          <button
-            data-collapse-toggle='navbar-default'
-            type='button'
-            className='inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 mobile-menu-button'
-            aria-controls='navbar-default'
-            aria-expanded='false'
-          >
-            <span className='sr-only'>Open main menu</span>
-            <svg
-              className='w-6 h-6'
-              aria-hidden='true'
-              fill='currentColor'
-              viewBox='0 0 20 20'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                fillRule='evenodd'
-                d='M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z'
-                clipRule='evenodd'
-              ></path>
-            </svg>
-          </button>
-          <div
-            className='hidden w-full md:block md:w-auto mobile-menu'
-            id='navbar-default'
-          >
-            <ul className='flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white'>
-              <li>
-                <a
-                  href='/'
-                  className='block py-2 pr-4 pl-3 text-gray-700 bg-orange-500 rounded md:bg-transparent md:text-orange-500 md:p-0'
-                  aria-current='page'
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href='/'
-                  className='block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0'
-                >
-                  Our Products
-                </a>
-              </li>
-              <li>
-                <a
-                  href='/'
-                  className='block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0'
-                >
-                  {users ? user.username : user.given_name}
-                </a>
-              </li>
-              <form onSubmit={logoutHandler}>
-                <li>
-                  <button className='block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0'>
-                    Logout
-                  </button>
-                </li>
-              </form>
-            </ul>
-          </div>
-        </div>
-      </nav>
-              {datas?.map((data, idx) => {
-                return (
-                  <div key={idx}>
-                    <h5>{data?.id_seller}</h5>
-                    <h5>{data?.name}</h5>
-                    <h5>{data?.product_name}</h5>
-                    <img className='h-20 w-20' src={data?.product_file} />
-                    <h5>{data?.category}</h5>
-                    <h5>{data?.description}</h5>
-                    <h5>{data?.nett_price}</h5>
-                    <br />
-                  </div>
-                )
-              })}
-      <section>
-        <div className='mx-auto mt-10 container flex flex-wrap flex-row tablet:items-center tablet:text-left text-center justify-between px-10'>
-          <div className='relative tablet:w-6/12 tablet:mb-0 mb-5 space-y-4'>
-            <p className='font-bold tablet:text-5xl text-3xl text-303030'>
-              Lorem ipsum dolor sit amet
-            </p>
-            <p className='tablet:text-2xl text-xl italic text-585858 max-w-md'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor
-            </p>
-          </div>
-          <div className='relative h-full ml-auto tablet:w-5/12 justify-items-end'>
-            <img
-              src='/assets/body1.png'
-              className='tablet:max-h-96 m-auto'
-              alt=''
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className='bg-gray-50'>
-        <div className='mx-auto container mt-20 px-10'>
-          <div className='text-center'>
-            <p className='text-4xl font-medium p-10'>Our Templates</p>
-          </div>
-          <div className='flex flex-row justify-between overflow-x-auto'>
-            <div className='w-full mr-3 max-w-mini bg-white rounded-lg shadow-md'>
-              <a href='/'>
-                <img
-                  className='rounded-t-lg'
-                  src='/assets/card1.png'
-                  alt='product'
-                />
-              </a>
-
-              <div className='px-5 pb-5'>
-                <a href='/'>
-                  <h5 className='truncate ... overflow-hidden text-xl font-semibold tracking-tight text-gray-900 ... mt-2'>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Atque numquam suscipit voluptas delectus minus! Cumque ex,
-                    laudantium laboriosam ea quisquam earum sunt aspernatur
-                    porro quibusdam, voluptates est illo tempore molestias.
-                  </h5>
-                </a>
-                <div className='flex items-center mb-3'></div>
-                <div className='flex justify-between items-center'>
-                  <div className='flex flex-row items-center'>
-                    <img
-                      src='/assets/muka1.jpeg'
-                      className='h-9 w-9 mr-2 rounded-full'
-                      alt=''
-                    />
-                    <label className='font-medium text-gray-700'>
-                      Nama Manusia
-                    </label>
-                  </div>
-                  <div className='flex flex-row items-center text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='h-5 w-5 mr-2'
-                      viewBox='0 0 20 20'
-                      fill='currentColor'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z'
-                        clipRule='evenodd'
-                      />
-                    </svg>
-                    <a href='/'>999 </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='w-full mr-3 max-w-mini bg-white rounded-lg shadow-md'>
-              <a href='/'>
-                <img
-                  className='rounded-t-lg'
-                  src='/assets/card1.png'
-                  alt='product'
-                />
-              </a>
-              <div className='px-5 pb-5'>
-                <a href='/'>
-                  <h5 className='truncate ... overflow-hidden text-xl font-semibold tracking-tight text-gray-900 ... mt-2'>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Atque numquam suscipit voluptas delectus minus! Cumque ex,
-                    laudantium laboriosam ea quisquam earum sunt aspernatur
-                    porro quibusdam, voluptates est illo tempore molestias.
-                  </h5>
-                </a>
-                <div className='flex items-center mb-3'></div>
-                <div className='flex justify-between items-center'>
-                  <div className='flex flex-row items-center'>
-                    <img
-                      src='/assets/muka1.jpeg'
-                      className='h-9 w-9 mr-2 rounded-full'
-                      alt=''
-                    />
-                    <label className='font-medium text-gray-700'>
-                      Nama Manusia
-                    </label>
-                  </div>
-                  <div className='flex flex-row items-center text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='h-5 w-5 mr-2'
-                      viewBox='0 0 20 20'
-                      fill='currentColor'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z'
-                        clipRule='evenodd'
-                      />
-                    </svg>
-                    <a href='/'>999 </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='w-full mr-3 max-w-mini bg-white rounded-lg shadow-md'>
-              <a href='/'>
-                <img
-                  className='rounded-t-lg'
-                  src='/assets/card1.png'
-                  alt='product'
-                />
-              </a>
-              <div className='px-5 pb-5'>
-                <a href='/'>
-                  <h5 className='truncate ... overflow-hidden text-xl font-semibold tracking-tight text-gray-900 ... mt-2'>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Atque numquam suscipit voluptas delectus minus! Cumque ex,
-                    laudantium laboriosam ea quisquam earum sunt aspernatur
-                    porro quibusdam, voluptates est illo tempore molestias.
-                  </h5>
-                </a>
-                <div className='flex items-center mb-3'></div>
-                <div className='flex justify-between items-center'>
-                  <div className='flex flex-row items-center'>
-                    <img
-                      src='/assets/muka1.jpeg'
-                      className='h-9 w-9 mr-2 rounded-full'
-                      alt=''
-                    />
-                    <label className='font-medium text-gray-700'>
-                      Nama Manusia
-                    </label>
-                  </div>
-                  <div className='flex flex-row items-center text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='h-5 w-5 mr-2'
-                      viewBox='0 0 20 20'
-                      fill='currentColor'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z'
-                        clipRule='evenodd'
-                      />
-                    </svg>
-                    <a href='/'>999 </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='flex flex-row justify-between overflow-x-auto mt-10'>
-            <div className='w-full max-w-md bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 mr-5'>
-              <a href='/'>
-                <img
-                  className='p-8 rounded-t-lg'
-                  src='/assets/card1.png'
-                  alt=''
-                />
-              </a>
-              <div className='px-5 pb-5'>
-                <a href='/'>
-                  <h5 className='truncate ... overflow-hidden text-xl font-semibold tracking-tight text-gray-900 dark:text-white ...'>
-                    Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-                  </h5>
-                </a>
-                <div className='flex items-center mb-3'></div>
-                <div className='flex justify-between items-center'>
-                  <span className='text-3xl font-bold text-gray-900 dark:text-white'>
-                    Rp. 99.000
-                  </span>
-                  <div className='flex flex-row items-center text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-500 dark:focus:ring-red-bg-red-600'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='h-5 w-5 mr-2'
-                      viewBox='0 0 20 20'
-                      fill='currentColor'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z'
-                        clipRule='evenodd'
-                      />
-                    </svg>
-                    <a href='/'>Like </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className='w-full max-w-md bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 mr-5'>
-              <a href='/'>
-                <img
-                  className='p-8 rounded-t-lg'
-                  src='/assets/card1.png'
-                  alt=''
-                />
-              </a>
-              <div className='px-5 pb-5'>
-                <a href='/'>
-                  <h5 className='truncate ... overflow-hidden text-xl font-semibold tracking-tight text-gray-900 dark:text-white ...'>
-                    Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-                  </h5>
-                </a>
-                <div className='flex items-center mb-3'></div>
-                <div className='flex justify-between items-center'>
-                  <span className='text-3xl font-bold text-gray-900 dark:text-white'>
-                    Rp. 99.000
-                  </span>
-                  <div className='flex flex-row items-center text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-500 dark:focus:ring-red-bg-red-600'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='h-5 w-5 mr-2'
-                      viewBox='0 0 20 20'
-                      fill='currentColor'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z'
-                        clipRule='evenodd'
-                      />
-                    </svg>
-                    <a href='/'>Like </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className='w-full max-w-md bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 mr-5'>
-              <a href='/'>
-                <img
-                  className='p-8 rounded-t-lg'
-                  src='/assets/card1.png'
-                  alt=''
-                />
-              </a>
-              <div className='px-5 pb-5'>
-                <a href='/'>
-                  <h5 className='truncate ... overflow-hidden text-xl font-semibold tracking-tight text-gray-900 dark:text-white ...'>
-                    Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-                  </h5>
-                </a>
-                <div className='flex items-center mb-3'></div>
-                <div className='flex justify-between items-center'>
-                  <span className='text-3xl font-bold text-gray-900 dark:text-white'>
-                    Rp. 99.000
-                  </span>
-                  <div className='flex flex-row items-center text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-500 dark:focus:ring-red-bg-red-600'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='h-5 w-5 mr-2'
-                      viewBox='0 0 20 20'
-                      fill='currentColor'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z'
-                        clipRule='evenodd'
-                      />
-                    </svg>
-                    <a href='/'>Like </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='text-center p-10'>
-            <button className='w-full max-w-sm px-6 py-3 rounded-full bg-orange-500 transition hover:bg-orange-600 focus:bg-orange-600 active:bg-orange-800'>
-              <span className='font-semibold text-white text-lg'>
-                More Templates
-              </span>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div className='mx-auto container'>
-          <div className='text-center'>
-            <p className='text-4xl font-medium p-10'>Why Devla ?</p>
-          </div>
-
-          <div className='flex flex-row justify-between overflow-x-auto mb-10 mx-28'>
-            <div className='text-center max-w-mini mr-44'>
-              <img src='/assets/ilus1.png' className='w-52 h-52 m-10' alt='' />
-              <h1 className='text-3xl font-medium'>Totally Free</h1>
-              <p className='mt-5'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor
-              </p>
-            </div>
-
-            <div className='text-center max-w-mini mr-44'>
-              <img src='/assets/ilus2.png' className='w-52 h-52 m-10' alt='' />
-              <h1 className='text-3xl font-medium'>Upload your work</h1>
-              <p className='mt-5'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor
-              </p>
-            </div>
-
-            <div className='text-center max-w-mini'>
-              <img src='/assets/ilus3.png' className='w-52 h-52 m-10' alt='' />
-              <h1 className='text-3xl font-medium'>Start earning</h1>
-              <p className='mt-5'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className='bg-gray-50'>
-        <div className='mx-auto container mt-20'>
-          <div className='text-center'>
-            <p className='text-4xl font-medium p-10'>Sell your templates now</p>
-          </div>
-
-          <div className='flex flex-row justify-between overflow-x-auto'>
-            <div className='w-full max-w-md dark:bg-gray-800 dark:border-gray-700 mr-5 text-center py-10'>
-              <a href='/'>
-                <div className='w-20 h-20 bg-white rounded-full m-auto flex items-center'>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='h-11 w-11 m-auto'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                    strokeWidth='2'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
-                    />
-                  </svg>
-                </div>
-                <div className='px-5'>
-                  <p className='text-3xl font-medium p-10'>Test</p>
-                  <h5 className='overflow-hidden text-xl tracking-tight text-gray-900 dark:text-white ...'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor{' '}
-                  </h5>
-                </div>
-              </a>
-            </div>
-
-            <div className='w-full max-w-md dark:bg-gray-800 dark:border-gray-700 mr-5 text-center py-10'>
-              <a href='/'>
-                <div className='w-20 h-20 bg-white rounded-full m-auto flex items-center'>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='h-11 w-11 m-auto'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                    strokeWidth='2'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4'
-                    />
-                  </svg>
-                </div>
-                <div className='px-5'>
-                  <a href='/'>
-                    <p className='text-3xl font-medium p-10'>
-                      Upload your work
-                    </p>
-                    <h5 className='overflow-hidden text-xl tracking-tight text-gray-900 dark:text-white ...'>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor{' '}
-                    </h5>
-                  </a>
-                </div>
-              </a>
-            </div>
-
-            <div className='w-full max-w-md dark:bg-gray-800 dark:border-gray-700 mr-5 text-center py-10'>
-              <a href='/'>
-                <div className='w-20 h-20 bg-white rounded-full m-auto flex items-center'>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='h-11 w-11 m-auto'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                    strokeWidth='2'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
-                    />
-                  </svg>
-                </div>
-                <div className='px-5'>
-                  <a href='/'>
-                    <p className='text-3xl font-medium p-10'>Start earning</p>
-                    <h5 className='overflow-hidden text-xl tracking-tight text-gray-900 dark:text-white ...'>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor{' '}
-                    </h5>
-                  </a>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div className='text-center mt-10'>
-            <button className='w-full max-w-sm px-6 py-3 rounded-full bg-orange-500 transition hover:bg-orange-600 focus:bg-orange-600 active:bg-orange-800 mb-20'>
-              <span className='font-semibold text-white text-lg'>Sign Up</span>
-            </button>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div className='mx-auto mt-20 mb-20 container flex flex-wrap flex-row items-center justify-between py-10 overflow-x-auto'>
-          <div className='relative w-5/12 space-y-4'>
-            <img src='/assets/logo.png' alt='' className='h-16 w-max' />
-            <p className='text-2xl italic text-585858 max-w-md'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor
-            </p>
-          </div>
-          <div className='flex-col'>
-            <p className='font-bold text-2xl mb-5'>For Designer</p>
-            <p className='text-lg mb-5'>Go Pro!</p>
-            <p className='text-lg mb-5'>Explore Design Work</p>
-            <p className='text-lg mb-5'>Design Blog</p>
-            <p className='text-lg mb-5'>Go Pro</p>
-            <p className='text-lg mb-5'>Go Pro</p>
-            <p className='text-lg mb-5'>Go Pro</p>
-          </div>
-          <div className='flex-col'>
-            <p className='font-bold text-2xl mb-5'>For Designer</p>
-            <p className='text-lg mb-5'>Go Pro!</p>
-            <p className='text-lg mb-5'>Explore Design Work</p>
-            <p className='text-lg mb-5'>Design Blog</p>
-            <p className='text-lg mb-5'>Go Pro</p>
-            <p className='text-lg mb-5'>Go Pro</p>
-            <p className='text-lg mb-5'>Go Pro</p>
-          </div>
-          <div className='flex-col'>
-            <p className='font-bold text-2xl mb-5'>For Designer</p>
-            <p className='text-lg mb-5'>Go Pro!</p>
-            <p className='text-lg mb-5'>Explore Design Work</p>
-            <p className='text-lg mb-5'>Design Blog</p>
-            <p className='text-lg mb-5'>Go Pro</p>
-            <p className='text-lg mb-5'>Go Pro</p>
-            <p className='text-lg mb-5'>Go Pro</p>
-          </div>
-        </div>
-      </section>
-      <section className='bg-gray-600'>
-        <p className='text-center text-xl p-2 text-gray-400'>
-          © Copyright 2022 Devla. All Rights Reserved.
-        </p>
-      </section>
-    </div>
-  )
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
 }
 
-export default Home
+function Home() {
+
+    const [user, setUser] = useState(userGoogle ? decode(userGoogle) : {})
+    const [token, setToken] = useState(users ? users : userGoogle);
+    const userData = decode(users)
+
+    const [datas, setDatas] = useState([])
+
+    const fetchData = async () => {
+        setUser(userData.data)
+
+        await axios.post('http://localhost:8000/api/show')
+        .then((response) => {
+            const { data } = response.data
+            setDatas(data)
+        })
+    }
+
+    useEffect(() => {
+        if(!token) {
+            window.location.href = "/";
+        }
+
+        if(!users) {}
+        fetchData();
+
+    }, [token]);
+
+    const logoutHandler = async (e) => {
+        e.preventDefault()
+
+        if(users) {
+            localStorage.removeItem('token')
+        } else if(userGoogle) {
+            localStorage.removeItem('userGoogle')
+        }
+        window.location.href = '/'
+    };
+
+    return (
+        <div className='font-face-inter'>
+        <nav className="bg-white border-gray-100 border-b-2 px-2 sm:px-4 py-4 rounded">
+            <div className="container flex flex-wrap justify-between items-center mx-auto">
+                <a href="index.html" className="flex items-center">
+                    <img src="/assets/logo.png" className="mr-3 w-[98px] h-[40px]" alt="Devla Logo" />
+                </a>
+                <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 mobile-menu-button" aria-controls="navbar-default" aria-expanded="false">
+                    <span className="sr-only">Open main menu</span>
+                    <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
+                </button>
+                <div className="hidden w-full md:block md:w-auto mobile-menu" id="navbar-default">
+                    <ul className="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
+                        <li>
+                            <a href="/" className="block py-2 pr-4 pl-3 text-gray-700 bg-orange-500 rounded md:bg-transparent md:text-orange-500 md:p-0 text-[14px]" aria-current="page">Home</a>
+                        </li>
+                        <li>
+                            <a href="Products" className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0 text-[14px]">Our Products</a>
+                        </li>
+                        <li>
+                            <a href="/" className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-600 md:p-0 text-[14px]">Start Selling</a>
+                        </li>
+                        <Menu as="div" className="relative inline-block">
+                        <div class>
+                            <Menu.Button className="inline-flex w-full justify-center rounded-md bg-white px-4 text-sm font-medium text-gray-700 focus:outline-none">
+                                <img src="/assets/muka1.jpeg" alt="" class="relative bottom-1 w-[30px] h-[30px] rounded-2xl mr-1"/>
+                                <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
+                            </Menu.Button>
+                        </div>
+
+                        <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                        >
+                            <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <div className="py-1">
+                                <Menu.Item>
+                                    <p className='text-gray-700 block px-4 py-2 text-sm'>
+                                    Signed in as
+                                        <br />
+                                        <p className="font-bold text-sm">{user.username}</p>
+                                    </p>
+                                </Menu.Item>
+                            </div>
+                            <div className="py-1">
+                                <Menu.Item>
+                                {({ active }) => (
+                                    <p
+                                    className={classNames(
+                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                        'block px-4 py-2 text-sm'
+                                    )}
+                                    >
+                                    <button onClick={logoutHandler}>Sign out</button>
+                                    </p>
+                                )}
+                                </Menu.Item>
+                            </div>
+                            </Menu.Items>
+                        </Transition>
+                        </Menu>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <section>
+            <div className="mx-auto mt-20 container flex flex-wrap flex-row items-center text-left justify-between px-10">
+                <div className="relative w-6/12 space-y-4">
+                    <img src="/assets/logo.png" className="w-[255px] h-[105px]" alt="" />
+                    <p className="text-[16px] text-585858 max-w-xl text-gray-400">Devla is the international design template community for creative individuals to sell your self-made template design , grow your business, and buy your very own template design.</p>
+                </div>
+                <div className="relative h-full ml-auto w-5/12 justify-items-end">
+                    <img src="/assets/body1.png" className="w-[537px] h-[370px] m-auto" alt="" />
+                </div>
+            </div>
+        </section>
+
+        <section className="bg-gray-50">
+            <div className="mx-auto container mt-20 px-10">
+                <div className="text-center">
+                    <p className="text-[36px] font-semibold p-10">Our Templates</p>
+                </div>
+                <div className="flex flex-row justify-between">
+                    <div className="flex-row my-3 relative flex space-x-28">
+                    <div className="">   
+                        <img src="" alt="" className="w-[400px] h-[253px] rounded-lg"/>
+                    <div className="flex flex-row justify-between">
+                    <div className="flex flex-row">
+                        <img src="/assets/muka1.jpeg" alt="" className="w-[30px] h-[30px] rounded-2xl mt-1"/>
+                        <p className="ml-2 mr-10 mt-2 font-semibold text-gray-700 text-[14px]">Nama Manusia</p>
+                    </div>
+                    <div className="flex flex-row ml-24">
+                        <svg xmlns= "http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[26px] h-[19px] text-gray-500 mt-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <p className="ml-1 mr-2 font-medium text-gray-700 text-[14px] mt-2">3k</p>
+                    </div>
+                    <div className="flex flex-row">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[23px] h-[23px] text-gray-500 mt-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                    <p className="ml-1 mr-2 font-medium text-gray-700 text-[14px] mt-2">2k</p>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            <div className="flex-row my-3 relative flex space-x-28">
+                    <div className="">   
+                        <img src="/assets/card1.png" alt="" className="w-[400px] h-[253px] rounded-lg"/>
+                        <div className="flex flex-row justify-between">
+                    <div className="flex flex-row">
+                        <img src="/assets/muka1.jpeg" alt="" className="w-[30px] h-[30px] rounded-2xl mt-1"/>
+                        <p className="ml-2 mr-10 mt-2 font-semibold text-gray-700 text-[14px]">Nama Manusia</p>
+                    </div>
+                    <div className="flex flex-row ml-24">
+                        <svg xmlns= "http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[26px] h-[19px] text-gray-500 mt-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <p className="ml-1 mr-2 font-medium text-gray-700 text-[14px] mt-2">3k</p>
+                    </div>
+                    <div className="flex flex-row">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[23px] h-[23px] text-gray-500 mt-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                    <p className="ml-1 mr-2 font-medium text-gray-700 text-[14px] mt-2">2k</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div className="flex-row my-3 relative flex space-x-28">
+                    <div className="">   
+                        <img src="/assets/card1.png" alt="" className="w-[400px] h-[253px] rounded-lg"/>
+                        <div className="flex flex-row justify-between">
+                    <div className="flex flex-row">
+                        <img src="/assets/muka1.jpeg" alt="" className="w-[30px] h-[30px] rounded-2xl mt-1"/>
+                        <p className="ml-2 mr-10 mt-2 font-semibold text-gray-700 text-[14px]">Nama Manusia</p>
+                    </div>
+                    <div className="flex flex-row ml-24">
+                        <svg xmlns= "http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[26px] h-[19px] text-gray-500 mt-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <p className="ml-1 mr-2 font-medium text-gray-700 text-[14px] mt-2">3k</p>
+                    </div>
+                    <div className="flex flex-row">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[23px] h-[23px] text-gray-500 mt-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                    <p className="ml-1 mr-2 font-medium text-gray-700 text-[14px] mt-2">2k</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div classNameName="flex flex-row justify-between">
+                    <div className="flex-row my-3 relative flex space-x-28">
+                    <div className="">   
+                        <img src="/assets/card1.png" alt="" className="w-[400px] h-[253px] rounded-lg"/>
+                        <div className="flex flex-row justify-between">
+                    <div className="flex flex-row">
+                        <img src="/assets/muka1.jpeg" alt="" className="w-[30px] h-[30px] rounded-2xl mt-1"/>
+                        <p className="ml-2 mr-10 mt-2 font-semibold text-gray-700 text-[14px]">Nama Manusia</p>
+                    </div>
+                    <div className="flex flex-row ml-24">
+                        <svg xmlns= "http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[26px] h-[19px] text-gray-500 mt-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <p className="ml-1 mr-2 font-medium text-gray-700 text-[14px] mt-2">3k</p>
+                    </div>
+                    <div className="flex flex-row">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[23px] h-[23px] text-gray-500 mt-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                    <p className="ml-1 mr-2 font-medium text-gray-700 text-[14px] mt-2">2k</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div className="flex-row my-3 relative flex space-x-28">
+                    <div className="">   
+                        <img src="/assets/card1.png" alt="" className="w-[400px] h-[253px] rounded-lg"/>
+                        <div className="flex flex-row justify-between">
+                    <div className="flex flex-row">
+                        <img src="/assets/muka1.jpeg" alt="" className="w-[30px] h-[30px] rounded-2xl mt-1"/>
+                        <p className="ml-2 mr-10 mt-2 font-semibold text-gray-700 text-[14px]">Nama Manusia</p>
+                    </div>
+                    <div className="flex flex-row ml-24">
+                        <svg xmlns= "http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[26px] h-[19px] text-gray-500 mt-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <p className="ml-1 mr-2 font-medium text-gray-700 text-[14px] mt-2">3k</p>
+                    </div>
+                    <div className="flex flex-row">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[23px] h-[23px] text-gray-500 mt-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                    <p className="ml-1 mr-2 font-medium text-gray-700 text-[14px] mt-2">2k</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div className="flex-row my-3 relative flex space-x-28">
+                    <div className="">   
+                        <img src="/assets/card1.png" alt="" className="w-[400px] h-[253px] rounded-lg"/>
+                        <div className="flex flex-row justify-between">
+                    <div className="flex flex-row">
+                        <img src="/assets/muka1.jpeg" alt="" className="w-[30px] h-[30px] rounded-2xl mt-1"/>
+                        <p className="ml-2 mr-10 mt-2 font-semibold text-gray-700 text-[14px]">Nama Manusia</p>
+                    </div>
+                    <div className="flex flex-row ml-24">
+                        <svg xmlns= "http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[26px] h-[19px] text-gray-500 mt-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <p className="ml-1 mr-2 font-medium text-gray-700 text-[14px] mt-2">3k</p>
+                    </div>
+                    <div className="flex flex-row">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[23px] h-[23px] text-gray-500 mt-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                        <p className="ml-1 mr-2 font-medium text-gray-700 text-[14px] mt-2">2k</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div className="text-center p-10">
+                    <button className="w-[311px] h-[52px] px-6 py-3 rounded-full bg-orange-500 transition hover:bg-orange-600 focus:bg-orange-600 active:bg-orange-800">
+                        <span className="font-semibold text-white text-[18px]">More Templates</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div className="mx-auto container">
+                <div className="text-center">
+                    <p className="text-4xl font-semibold p-10 text[36px]">Why Devla ?</p>
+                </div>
+                <div className="flex justify-center items-center mx-28 mb-10">
+                    <div className="flex-1 flex flex-col text-center items-center  mt-22">
+                        <img src="/assets/ilus1.png" className="w-[170px] h-[168px] my-10" alt="" />
+                        <h1 className="text-[30px] font-medium">Totally Free</h1>
+                        <p className="font-regular text-[16px] mt-5 text-gray-400">Our services doesn't includes tax in your purchases. </p>
+                    </div>
+
+                    <div className="flex-1 flex flex-col text-center items-center mx-32 mt-22">
+                        <img src="/assets/ilus2.png" className="w-[170px] h-[168px] my-10" alt="" />
+                        <h1 className="text-[30px] font-medium">Upload your work</h1>
+                        <p className="font-regular text-[16px] mt-5 text-gray-400">You can sell your self-made template design in our platform.</p>
+                    </div>
+
+                    <div className="flex-1 flex flex-col text-center items-center">
+                        <img src="/assets/ilus3.png" className="w-[170px] h-[209px] my-10" alt="" />
+                        <h1 className="text-[30px] font-medium">Start earning</h1>
+                        <p className="font-regular text-[16px] mt-5 text-gray-400">Start earning incomes by uploading yourself-made template design</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section className="bg-gray-50">
+            <div className="mx-auto container mt-20">
+                <div className="text-center">
+                    <p className="text-[36px] font-semibold p-10">Sell your templates now</p>
+                </div>
+
+                <div className="flex flex-row justify-between overflow-x-auto">
+                    <div className="w-full max-w-md dark:border-gray-700 mr-5 text-center py-10">
+                        <a href="/">
+                            <div className="w-20 h-20 bg-white rounded-full m-auto flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-[100px] h-[100px] m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <div className="px-5">
+                                    <p className="text-[30px] font-medium px-10 pt-10">Sign Up</p>
+                                    <p className="text-[16px] text-gray-400 font-regular p-10">Sign up now and make an account!</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div className="w-full max-w-md dark:border-gray-700 mr-5 text-center py-10">
+                        <a href="/">
+                            <div className="w-20 h-20 bg-white rounded-full m-auto flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-[100px] h-[100px] m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                            </div>
+                            <div className="px-5">
+                                <a href="/">
+                                    <p className="text-[30px] font-medium px-10 pt-10">Upload your work</p>
+                                    <p className="text-[16px] text-gray-400 font-regular p-10">You can upload your work in our platform for free.</p>
+                                </a>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div className="w-full max-w-md dark:border-gray-700 mr-5 text-center py-10">
+                        <a href="/">
+                            <div className="w-20 h-20 bg-white rounded-full m-auto flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-[100px] h-[100px] m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div className="px-5">
+                                <a href="/">
+                                    <p className="text-[30px] font-medium px-10 pt-10">Start earning</p>
+                                    <p className="text-[16px] text-gray-400 font-regular p-10">Start earning incomes by uploading yourself-made template design</p>
+                                </a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div className="mx-auto mt-20 mb-20 container flex flex-wrap flex-row items-center justify-between py-10 overflow-x-auto">
+                <div className="relative w-5/12 space-y-4">
+                    <img src="/assets/logo.png" alt="" className="h-[64px] w-[157px]" />
+                    <p className="text-[16px] text-gray-400 font-regular text-585858 max-w-md">Devla is the international design template community for creative individuals to sell your self-made template design , grow your business, and buy your very own template design.</p>
+                </div>
+                <div className="flex-col">
+                    <p className="font-medium text-[18px] mb-5">For Designer</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro!</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Explore Design Work</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Design Blog</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro</p>
+                </div>
+                <div className="flex-col">
+                    <p className="font-medium text-[18px] mb-5">For Designer</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro!</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Explore Design Work</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Design Blog</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro</p>
+                </div>
+                <div className="flex-col">
+                    <p className="font-medium text-[18px] mb-5">For Designer</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro!</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Explore Design Work</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Design Blog</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro</p>
+                </div>
+                <div className="flex-col">
+                    <p className="font-medium text-[18px] mb-5">For Designer</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro!</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Explore Design Work</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Design Blog</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro</p>
+                    <p className="text-[14px] font-regular mb-3 text-gray-600">Go Pro</p>
+                </div>
+            </div>
+        </section>
+        <section className="bg-gray-600 ">
+            <p className="text-center text-[18px] font-semibold p-2 text-gray-400">© Copyright 2022 Devla. All Rights Reserved.</p>
+        </section>
+    </div>
+    )
+}
+
+export default Home;

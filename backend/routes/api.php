@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\SellerController;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +27,8 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/input', [SellerController::class, 'store']);
 Route::post('/show', [SellerController::class, 'show']);
+
+Route::post('/addProduct', [CartController::class, 'addProduct']);
+Route::post('/showProduct', [CartController::class, 'showProduct']);
+Route::post('/destroyProduct', [CartController::class, 'destroyProduct']);
+Route::post('/clearProduct', [CartController::class, 'clearProduct']);

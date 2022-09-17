@@ -11,6 +11,8 @@ import Forgot from './pages/Forgot'
 import Resend from './pages/Resend'
 import Reset from './pages/Reset'
 import Input from './pages/Input'
+import Cart from './pages/Cart'
+import Product from './pages/Product'
 
 function App() {
 
@@ -29,6 +31,8 @@ function App() {
         <Route index path="/api/forget?token={token}" element={<Reset />} />
         <Route index path="/resend" element={<Resend />} />
         <Route index path="/input" element={<Input />} />
+        <Route index path="/cart" element={<Cart />} />
+        <Route index path="/product" element={<Product />} />
       </Routes>
     </div>
   );

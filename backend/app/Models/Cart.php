@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Seller extends Model
+class Cart extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-      'id_seller', 'name', 'product_name', 'product_file', 'category', 'description', 'nett_price'
+        'id_user', 'name', 'product_name', 'nett_price', 'id_product'
     ];
 
-    protected $table = 'product';
+    protected $table = 'cart';
 
     protected $guarded = ['id'];
 

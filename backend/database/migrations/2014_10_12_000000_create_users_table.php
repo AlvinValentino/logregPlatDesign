@@ -20,13 +20,23 @@ return new class extends Migration
             $table->string('password');
         });
 
-        Schema::create('seller', function (Blueprint $table) {
-            $table->increments('id_seller');
+        Schema::create('product', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_seller')->references('id')->on('users');
             $table->string('name');
             $table->string('product_name');
             $table->longText('product_file');
             $table->string('category');
             $table->text('description');
+            $table->string('nett_price');
+        });
+
+        Schema::create('cart', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_user')->references('id')->on('users');
+            $table->string('name');
+            $table->foreignId('id_product')->references('id')->on('product');
+            $table->string('product_name');
             $table->string('nett_price');
         });
     }
@@ -39,6 +49,7 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('seller');
+        Schema::dropIfExists('product');
+        Schema::dropIfExists('cart');
     }
 };

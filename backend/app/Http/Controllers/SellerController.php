@@ -10,7 +10,9 @@ class SellerController extends Controller
 {
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
-            'product_name' => 'required', 
+            'id_seller' => 'required',
+            'name' => 'required',
+            'product_name' => 'required',
             'product_file' => 'required',
             'category' => 'required',
             'description' => 'required',
@@ -22,6 +24,7 @@ class SellerController extends Controller
         }
 
         Seller::create([
+            'id_seller' => $request->id_seller,
             'name' => $request->name,
             'product_name' => $request->product_name,
             'product_file' => $request->product_file,
