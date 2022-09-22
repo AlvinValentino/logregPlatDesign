@@ -13,6 +13,8 @@ import Reset from './pages/Reset'
 import Input from './pages/Input'
 import Cart from './pages/Cart'
 import Product from './pages/Product'
+import Test from './pages/Test'
+import EditProfile from './pages/EditProfile';
 
 function App() {
 
@@ -33,6 +35,8 @@ function App() {
         <Route index path="/input" element={<Input />} />
         <Route index path="/cart" element={<Cart />} />
         <Route index path="/product" element={<Product />} />
+        <Route index path="/test" element={<Test />} />
+        <Route index path="/edit" element={<EditProfile alert={alert} setAlert={setAlert} />} />
       </Routes>
     </div>
   );

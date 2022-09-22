@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Alert } from '../components'
+import { AlertError } from '../components'
 import decode from 'jwt-decode'
 // import { GoogleLogin } from '@react-oauth/google'
 // import LoginGithub from 'react-login-github';
@@ -138,7 +138,7 @@ function Login(props) {
           </div>
           {/* <form onSubmit={loginHandler} method="POST"> */}
           <div className='space-y-6 mt-10'>
-            {alert.isOpen ? <Alert alert={alert} setAlert={setAlert} /> : null}
+            {alert.isOpen ? <AlertError alert={alert} setAlert={setAlert} /> : null}
             <div className='relative flex items-center'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'

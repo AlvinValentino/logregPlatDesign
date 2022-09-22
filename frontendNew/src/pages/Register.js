@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { Alert } from '../components'
+import { AlertError } from '../components'
 
 function Register(props) {
   const [passtype, setPasstype] = useState(false)
@@ -88,7 +88,7 @@ function Register(props) {
           <div
             className='space-y-6 mt-10'
           >
-            {alert.isOpen ? <Alert alert={alert} setAlert={setAlert} /> : null}
+            {alert.isOpen ? <AlertError alert={alert} setAlert={setAlert} /> : null}
             <div className='relative flex items-center'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'

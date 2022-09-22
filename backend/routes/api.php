@@ -24,6 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/editUser', [AuthController::class, 'editUser']);
+Route::post('/showUser', [AuthController::class, 'showUser']);
+Route::post('/editAvatar', [AuthController::class, 'editAvatar']);
 
 Route::post('/input', [SellerController::class, 'store']);
 Route::post('/show', [SellerController::class, 'show']);

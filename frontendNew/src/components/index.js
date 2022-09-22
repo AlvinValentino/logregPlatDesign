@@ -1,3 +1,4 @@
-import Alert from "./Alert";
+import AlertError from "./AlertError";
+import AlertSuccess from "./AlertSuccess"
 
-export { Alert };
+export { AlertError, AlertSuccess };

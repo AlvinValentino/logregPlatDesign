@@ -53,4 +53,36 @@ class AuthController extends Controller
     protected function createNewToken($token) {
         return response()->json(['token' => $token], 200);
     }
+
+    public function editUser(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required',
+            'email' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
+
+        $editUser = User::where('id', $request->id)->update([
+            'username' => $request->username,
+            'name' => $request->name,
+            'email' => $request->email,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'description' => $request->description,
+            'avatar' => $request->avatar,
+        ]);
+
+        if($editUser) {
+            return response()->json(['success' => 'Data was changed'], 200);
+        }
+
+    }
+
+    public function showUser(Request $request) {
+        $dataUser = User::where('id', $request->id)->get();
+
+        return response()->json(['data' => $dataUser]);
+    }
 }
