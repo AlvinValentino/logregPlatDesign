@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\SellerController;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,14 +18,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/register', App\Http\Controllers\Auth\RegisterController::class)->name('register');
-Route::post('/login', App\Http\Controllers\Auth\LoginController::class)->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/editUser', [AuthController::class, 'editUser']);
+Route::post('/showUser', [AuthController::class, 'showUser']);
+Route::post('/editAvatar', [AuthController::class, 'editAvatar']);
 
+Route::post('/input', [SellerController::class, 'store']);
+Route::post('/show', [SellerController::class, 'show']);
+Route::post('/search', [SellerController::class, 'search']);
 
-Route::post('/forgot', [App\Http\Controllers\Auth\ForgotController::class, 'forgot']);
-Route::post('/resend', [App\Http\Controllers\Auth\ForgotController::class, 'forgot']);
-Route::post('/reset', [App\Http\Controllers\Auth\ForgotController::class, 'reset']);
+Route::post('/addProduct', [CartController::class, 'addProduct']);
+Route::post('/showProduct', [CartController::class, 'showProduct']);
+Route::post('/destroyProduct', [CartController::class, 'destroyProduct']);
+Route::post('/clearProduct', [CartController::class, 'clearProduct']);

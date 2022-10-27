@@ -13,21 +13,36 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('logreg', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('isAdmin');
+            $table->text('address');
+            $table->string('phone');
+            $table->longText('description');
+            $table->longText('avatar');
         });
 
-        Schema::create('users', function (Blueprint $table) {
-            $table->string('username');
+        Schema::create('product', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_seller')->references('id')->on('users');
             $table->string('name');
-            $table->string('email')->primary();
-            $table->string('password');
-            $table->boolean('isAdmin');
+            $table->string('product_name');
+            $table->longText('product_file');
+            $table->string('category');
+            $table->text('description');
+            $table->string('nett_price');
+        });
+
+        Schema::create('cart', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_user')->references('id')->on('users');
+            $table->string('name');
+            $table->foreignId('id_product')->references('id')->on('product');
+            $table->string('product_name');
+            $table->string('nett_price');
         });
     }
 
@@ -39,5 +54,7 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('product');
+        Schema::dropIfExists('cart');
     }
 };
