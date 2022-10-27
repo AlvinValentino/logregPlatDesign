@@ -77,7 +77,11 @@ function EditProfile(props) {
 
     useEffect(() => {
         fetchData()
-    }, []);
+
+        if(!token) {
+            window.location.href = '/'
+        }
+    }, [token]);
 
     const HandleChange = (e) => {
         setFormData({...formData , [e.target.name]:e.target.value});
@@ -88,7 +92,7 @@ function EditProfile(props) {
 
         await axios.post('http://localhost:8000/api/editUser', formData)
         .then(() => {
-            window.location.reload()
+            window.location.href = "/profile"
         })
     }
 
@@ -96,7 +100,7 @@ function EditProfile(props) {
         <div>
             <nav className="sticky top-0 bg-white border-gray-100 border-b-2 px-2 sm:px-4 py-4 rounded">
                 <div className="container flex flex-wrap justify-between items-center mx-auto">
-                    <a href="index.html" className="flex items-center">
+                    <a href="/home" className="flex items-center">
                         <img src="/assets/logo.png" className="mr-3 h-6 sm:h-9" alt="Devla Logo" />
                     </a>
                     <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 mobile-menu-button" aria-controls="navbar-default" aria-expanded="false">
@@ -117,7 +121,7 @@ function EditProfile(props) {
                             <Menu as="div" className="relative inline-block">
                                 <div class>
                                     <Menu.Button className="inline-flex w-full justify-center rounded-md bg-white px-4 text-sm font-medium text-gray-700 focus:outline-none">
-                                        <img src="/assets/muka1.jpeg" alt="" className="relative bottom-1 w-[30px] h-[30px] rounded-2xl mr-1"/>
+                                        <img src={formData.avatar ? formData.avatar : "/assets/muka1.jpeg"} alt="" className="relative bottom-1 w-[30px] h-[30px] rounded-2xl mr-1"/>
                                         <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
                                     </Menu.Button>
                                 </div>
@@ -128,10 +132,28 @@ function EditProfile(props) {
                                                 <p className='text-gray-700 block px-4 py-2 text-sm'>
                                                     Signed in as
                                                     <br />
-                                                    <p className="font-bold text-sm">{user.username}</p>
+                                                    <p className="font-bold text-sm">{formData.username}</p>
                                                 </p>
                                             </Menu.Item>
                                         </div>
+                                        <div className="py-1">
+                                <Menu.Item>
+                                {({ active }) => (
+                                    <a href="/profile" className={classNames(active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm')}>
+                                        Profile
+                                    </a>
+                                )}
+                                </Menu.Item>
+                            </div>
+                            <div className="py-1">
+                                <Menu.Item>
+                                {({ active }) => (
+                                    <a href="/myorder" className={classNames(active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm')}>
+                                        My Order
+                                    </a>
+                                )}
+                                </Menu.Item>
+                            </div>
                                         <div className="py-1">
                                             <Menu.Item>
                                             {({ active }) => (

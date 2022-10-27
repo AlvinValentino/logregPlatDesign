@@ -10,12 +10,10 @@ class Seller extends Model
     use HasFactory;
 
     protected $fillable = [
-      'id_seller', 'name', 'product_name', 'product_file', 'category', 'description', 'nett_price'
+      'id_seller', 'username', 'product_name', 'product_file', 'category', 'description', 'nett_price'
     ];
 
     protected $table = 'product';
 
     protected $guarded = ['id'];
-
-    public $timestamps = false;
 }

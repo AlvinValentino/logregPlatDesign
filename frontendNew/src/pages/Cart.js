@@ -20,9 +20,9 @@ function Cart() {
         })
     }
 
-    useEffect(() => {
-        fetchData()
-    }, [])
+    // useEffect(() => {
+    //     fetchData()
+    // }, [])
 
     const destroyHandler = async (e) => {
         setFormData({...formData, id: e.target.value})

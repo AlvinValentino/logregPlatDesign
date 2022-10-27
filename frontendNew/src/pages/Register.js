@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { AlertError } from '../components'
 
+const users = JSON.parse(localStorage.getItem('token'))
+const userGoogle = JSON.parse(localStorage.getItem('userGoogle'))
+
 function Register(props) {
   const [passtype, setPasstype] = useState(false)
+  const token = users ? users : userGoogle
 
   const { alert, setAlert } = props
   const [formData, setFormData] = useState({
@@ -11,6 +15,12 @@ function Register(props) {
     password: '',
     username: '',
   })
+
+  useEffect(() => {
+    if(token) {
+      window.location.href = '/home'
+    }
+  }, [token])
 
   const HandleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -27,12 +37,11 @@ function Register(props) {
     ) {
       setTimeout(() => {
         setAlert({ isOpen: false })
-      }, 5000)
+      }, 3000)
 
       return setAlert({
         isOpen: true,
-        title: 'Field masih kosong!',
-        message: 'Ayo diisi.',
+        message: 'Field still empty!',
       })
     }
 
@@ -49,7 +58,6 @@ function Register(props) {
         setAlert({
           isOpen: true,
           message: data.message,
-          title: data.title,
           variant: 'bg-red-100',
           textVariant: 'text-red-800',
         })

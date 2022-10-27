@@ -3,7 +3,7 @@ import React from 'react'
 function Reset() {
     return (
         <div className="h-screen m-auto">
-            <div hidden className="fixed inset-0 w-5/12  text-white lg:block">
+            <div hidden className="fixed inset-0 w-5/12 text-white lg:block">
                 <img className="w-full h-full object-cover" src="/images/bg1.png" alt="bg1" />
                 <div className="absolute inset-0 bg-ov bg-opacity-20"></div>
             </div>

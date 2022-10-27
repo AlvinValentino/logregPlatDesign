@@ -30,6 +30,7 @@ Route::post('/editAvatar', [AuthController::class, 'editAvatar']);
 
 Route::post('/input', [SellerController::class, 'store']);
 Route::post('/show', [SellerController::class, 'show']);
+Route::post('/search', [SellerController::class, 'search']);
 
 Route::post('/addProduct', [CartController::class, 'addProduct']);
 Route::post('/showProduct', [CartController::class, 'showProduct']);

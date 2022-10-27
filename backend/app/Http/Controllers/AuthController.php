@@ -16,11 +16,11 @@ class AuthController extends Controller
         ]);
 
         if($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json(['message' => 'Validation Failed!'], 422);
         }
 
         if(!$token = JWTAuth::attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'Login Failed!'], 401);
         }
 
         return $this->createNewToken($token);
@@ -29,16 +29,16 @@ class AuthController extends Controller
     public function register(Request $request) {
         $validator = Validator::make($request->all(), [
             'username' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
             'password' => 'required|min:6'
         ]);
 
         if($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
+            return response()->json(['message' => 'Validation Failed!'], 422);
         }
 
         if(User::where('email', $request->email)->exists()) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'Registration Failed!'], 401);
         }
 
         User::create([
@@ -47,7 +47,7 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        return response()->json(['success' => 'Register Succesfull!'], 200);
+        return response()->json(['message' => 'Registration Succesfull!'], 200);
     }
 
     protected function createNewToken($token) {
